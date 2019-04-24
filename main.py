@@ -59,9 +59,9 @@ def new_post():
         if title=='':
             title_error="Please fill in the title"
         if body=='':
-            body_error=='Please fill in the body'
+            body_error="Please fill in the body"
 
-    if not title_error and not body_error:        
+    if request.method=='POST' and not title_error and not body_error:        
         new_blog=Blog(title, body)
         db.session.add(new_blog)
         db.session.commit()
@@ -69,7 +69,7 @@ def new_post():
         blogs = Blog.query.all()
         return render_template('main-blog.html', bloglist = blogs)
     else:
-        return render_template('new-blog.html', title_error=title_error,body_error=body_error)
+        return render_template('new-blog.html', title_error=title_error, body_error=body_error)
 
 
 

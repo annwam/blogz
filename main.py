@@ -72,8 +72,15 @@ def new_post():
         return render_template('new-blog.html', title_error=title_error, body_error=body_error)
 
 
+@app.route('/blogentry', methods=['POST','GET'])
+def blogEntry_post():
 
-    
+
+        # tasks = Task.query.filter_by(completed=False).all()
+    id=request.args['id']
+
+    blog=Blog.query.filter_by(id=id).first()
+    return render_template('blog.html', blog=blog)
 
     
 

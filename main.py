@@ -51,7 +51,7 @@ def new_post():
         blogs = Blog.query.all()
         return render_template('main-blog.html', bloglist = blogs)
     else:
-        return render_template('new-blog.html', title_error=title_error, body_error=body_error)
+        return render_template('new-blog.html', title_error=title_error, body_error=body_error,blog_title=title, blog_body=body)
 
 
 @app.route('/blogentry', methods=['POST','GET'])

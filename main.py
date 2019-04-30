@@ -35,7 +35,7 @@ class User(db.Model):
 
 @app.before_request
 def require_login():
-    allowed_routes=['login','signup']
+    allowed_routes=['login','sign_up']
     if request.endpoint not in allowed_routes and 'username' not in session:
         return redirect('/login')
     
@@ -96,7 +96,7 @@ def blogEntry_post():
     blog=Blog.query.filter_by(id=id).first()
     return render_template('blog.html', blog=blog)
 
-@app.route('/signup', methods=['POST','GET'])
+@app.route('/sign_up', methods=['POST','GET'])
 def sign_up():
 #declare global variables
      user_name_error=''

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Sign up for Blogz</h1>
+<form action="/signup" method='POST'>
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <label for="user_name">Username</label>
+                </td>
+                <td>
+                    <input type='text' name='user_name' value="{{name}}"/>
+                    <span class="error">{{user_name_error}}</span>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="password">Password</label>
+                </td>
+                <td>
+                    <input type='password' name='password'>
+                    <span class="error">{{password_error}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="verify">Verify Password</label>
+                </td>
+                <td>
+                    <input type='password' name = 'verify'>
+                    <span class="error">{{verify_error}}</span>
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+    <input type='submit' value='sign me up'/>
+
+</form>
+
+
+
+
+
+{% endblock %}

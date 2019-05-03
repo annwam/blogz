@@ -4,14 +4,17 @@
 
 
 
-<h1 class='h1'>Build a Blog</h1>
+<h1>Blog with Blogz</h1>
+<ul>
 {% for blog in bloglist %}
-<li>
-<ul><a href="blogentry?id={{blog.id}}"> <h2>{{ blog.title }}</h2>  </a></ul>
-<ul>{{ blog.body }}</ul>
-<hr>
-</li>
+
+    <li>
+        <a href="blogentry?id={{blog.id}}"> <h2>{{ blog.title }}</h2>  </a>
+        <p>{{ blog.body }}</p>
+        <p>written by {{blog.owner.username}}</p>
+        <hr>
+    </li>
 {% endfor %}
-
-
+ 
+</ul>
 {% endblock %}

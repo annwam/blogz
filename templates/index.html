@@ -2,7 +2,12 @@
 
 {% block content %}
 
-
+<h1>Blog with Blogz</h1>
+{% for user in users %}
+<ul>
+<li><a href="/blog?user={{user.id}}"><h3>{{ user.username }}</h3></a></li>
+</ul>
+{% endfor %}
 
 
 

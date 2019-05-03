@@ -74,7 +74,11 @@ def login():
 
 @app.route('/blog')
 def main_page():
-        
+    userid=request.args.get('user')
+    if userid:
+        blogs=Blog.query.filter_by(owner_id=userid).all()
+        return render_template('main-blog.html', bloglist = blogs)
+
     blogs = Blog.query.all()
     return render_template('main-blog.html', bloglist = blogs)
     
@@ -186,16 +190,18 @@ def sign_up():
 #     #save user to db
 
 
-# # @app.route('/signmeup')
-# # def index():
-# #     return render_template('index.html')
+@app.route('/')
+def index():
+    users=User.query.all()
+
+    return render_template('index.html', users=users)
 
 @app.route('/logout')
 def logout():
     del session['username']
     return redirect('/blog')
 
-
+#make user name a link to blog post and display them to every post.
 
 if __name__ == '__main__':
     app.run()

@@ -2,10 +2,11 @@
 
 {% block content %}
 
-<h2>Build a Blog</h2>
+<ul>
 <li>
-<ul><h2>{{ blog.title }}</h2></ul>
-<ul>{{ blog.body }}</ul>
+    <h2>{{ blog.title }}</h2>
+    <p>{{ blog.body }}</p>
+    <p> written by<a  href="/blog?user={{blog.owner.id}}"> {{blog.owner.username}}</a></p>
 <hr>
 </li>
 

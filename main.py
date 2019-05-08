@@ -78,6 +78,7 @@ def main_page():
     if userid:
         blogs=Blog.query.filter_by(owner_id=userid).all()
         return render_template('main-blog.html', bloglist = blogs)
+    
 
     blogs = Blog.query.all()
     return render_template('main-blog.html', bloglist = blogs)
@@ -95,6 +96,8 @@ def new_post():
     if request.method == 'POST':
         title = request.form['blog_title']
         body = request.form['blog_body'] 
+        blog_id=request.args.get('id')
+
         #validate 
         if title=='':
             title_error="Please fill in the title"
@@ -108,21 +111,23 @@ def new_post():
         new_blog=Blog(title, body,this_user)
         db.session.add(new_blog)
         db.session.commit()
-
+        if blog_id:
+            blog=Blog.query.filter_by(id=blog_id).first()
+            return render_template('blog.html', blog=blog)
         
-        blogs = Blog.query.all()
-        return render_template('main-blog.html', bloglist = blogs)
+        # blogs = Blog.query.all()
+        # return render_template('main-blog.html', bloglist = blogs)
     else:
         return render_template('add-newpost.html', title_error=title_error, body_error=body_error,blog_title=title, blog_body=body)
 
           
 
-@app.route('/blogentry', methods=['POST','GET'])
-def blogEntry_post():
-    id=request.args['id']
+# @app.route('/blogentry', methods=['POST','GET'])
+# def blogEntry_post():
+#     id=request.args['id']
 
-    blog=Blog.query.filter_by(id=id).first()
-    return render_template('blog.html', blog=blog)
+#     blog=Blog.query.filter_by(id=id).first()
+#     return render_template('blog.html', blog=blog)
 
 @app.route('/sign_up', methods=['POST','GET'])
 def sign_up():

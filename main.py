@@ -70,20 +70,21 @@ def login():
     else:
         return render_template ('login.html', username_error=username_error, password_error=password_error)
        # validate password and username)
-   #return render_template('login.html')
 
 @app.route('/blog')
 def main_page():
     userid=request.args.get('user')
+    blogid=request.args.get('id')
+
     if userid:
         blogs=Blog.query.filter_by(owner_id=userid).all()
         return render_template('main-blog.html', bloglist = blogs)
-    
-
+    if blogid:
+        blog=Blog.query.filter_by(id=blogid).first()
+        return render_template('blog.html', blog = blog)
     blogs = Blog.query.all()
     return render_template('main-blog.html', bloglist = blogs)
     
-
 @app.route('/newpost', methods=['POST','GET'])
 def new_post():
 
@@ -96,7 +97,6 @@ def new_post():
     if request.method == 'POST':
         title = request.form['blog_title']
         body = request.form['blog_body'] 
-        blog_id=request.args.get('id')
 
         #validate 
         if title=='':
@@ -111,8 +111,8 @@ def new_post():
         new_blog=Blog(title, body,this_user)
         db.session.add(new_blog)
         db.session.commit()
-        if blog_id:
-            blog=Blog.query.filter_by(id=blog_id).first()
+        if new_blog.id:
+            blog=Blog.query.filter_by(id=new_blog.id).first()
             return render_template('blog.html', blog=blog)
         
         # blogs = Blog.query.all()
@@ -122,12 +122,6 @@ def new_post():
 
           
 
-# @app.route('/blogentry', methods=['POST','GET'])
-# def blogEntry_post():
-#     id=request.args['id']
-
-#     blog=Blog.query.filter_by(id=id).first()
-#     return render_template('blog.html', blog=blog)
 
 @app.route('/sign_up', methods=['POST','GET'])
 def sign_up():
@@ -192,9 +186,6 @@ def sign_up():
 
 
 
-#     #save user to db
-
-
 @app.route('/')
 def index():
     users=User.query.all()
@@ -206,7 +197,6 @@ def logout():
     del session['username']
     return redirect('/blog')
 
-#make user name a link to blog post and display them to every post.
 
 if __name__ == '__main__':
     app.run()

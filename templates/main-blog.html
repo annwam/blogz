@@ -4,11 +4,11 @@
 
 
 
-<ul>
+ <ul>
 {% for blog in bloglist %}
 
     <li>
-        <a href="blogentry?id={{blog.id}}"> <h2>{{ blog.title }}</h2>  </a>
+        <a href="blog?id={{blog.id}}"> <h2>{{ blog.title }}</h2>  </a>
         <p>{{ blog.body }}</p>
         <p> written by<a  href="/blog?user={{blog.owner.id}}"> {{blog.owner.username}}</a></p>
         <hr>
